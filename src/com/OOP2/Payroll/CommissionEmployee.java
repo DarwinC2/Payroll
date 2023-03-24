@@ -30,7 +30,19 @@ public class CommissionEmployee extends Employee{
     }
 
 
-@Override
+    @Override
+    public double getPaymentAmount() {
+        return super.getPaymentAmount() + (grossSales * commissionRate);
+    }
+
+    @Override
+    public void writeToFile() {
+        super.writeToFile();
+        getGrossSales()writeToFile();
+
+    }
+
+    @Override
     public  void display(){
     super.display();
     System.out.println("Gross Sales: "+ grossSales);

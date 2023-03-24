@@ -1,5 +1,11 @@
 package com.OOP2.Payroll;
 
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public interface Payable {
 
     public double getPaymentAmount();
@@ -26,11 +32,19 @@ class Employee implements Payable {
     @Override
     public void writeToFile() {
 
-
-
-
+        String filename = "paystub.txt"; // Setting file name to paystub.txt
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); //creating a formatter for the date
+        LocalDate date = LocalDate.now(); //getting current date
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) { // Creating BufferedWriter and FileWriter objects to write data to the file
+            writer.write("Name: " + firstName + " " + lastName + "\n"); // Writing employee name to file
+            writer.write("Social Security Number: " + socialSecurityNumber + "\n"); // Writing employee SSN to file
+            writer.write("Payment Amount: " + getPaymentAmount() + "\n"); // Writing employee payment amount to file
+           writer.write("Date of Payment: " + date.format(formatter) + "\n");
+            System.out.println("Data written to file: " + filename); // Printing message to console to confirm data has been written to file
+        } catch (IOException e) { // Catching IOException if it occurs
+            System.out.println("An error occurred while writing to the file: " + e.getMessage()); // Printing error message to console
+        }
     }
-
 
 
 
